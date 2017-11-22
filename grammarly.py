@@ -33,7 +33,7 @@ def write(sentance):
     conn.commit()
 
 url = 'https://www.grammarly.com/signin'
-chrome_driver = '/usr/local/bin/chromedriver'
+chrome_driver = '/home/paul/Downloads/chromedriver'
 os.environ["webdriver.chrome.driver"] = chrome_driver
 browser = webdriver.Chrome(chrome_driver)
 browser.get(url)
@@ -45,14 +45,16 @@ pasword = 'maisiegreen123'
 browser.find_element_by_xpath("//input[@data-qa='txtEmail']").send_keys(username)
 browser.find_element_by_xpath("//input[@data-qa='txtPassword']").send_keys(pasword)
 time.sleep(4)
-browser.find_element_by_xpath("//button[@class='_4c31bd-basicButton _4c31bd-schemeGreen _4c31bd-shapeRound _4c31bd-sizeLarge _2030ff-button']").click() #login button
+browser.find_element_by_xpath("//button[@class='_4c31bd-basicButton _4c31bd-schemeGreen _4c31bd-shapeRound _4c31bd-sizeLarge _27d1c4-button']").click() #login button
 time.sleep(10)
-# ipdb.set_trace()
-sentance_list = [x['input'] for x in csv.DictReader(open('input.csv'))]
 output_list = []
 description_list = []
-browser.get('https://app.grammarly.com/docs/200375454')
+browser.get('https://app.grammarly.com/docs/200375454') 
 
+
+# ipdb.set_trace()
+
+#pasted data
 conn = None
 try:
     # read connection parameters
@@ -64,7 +66,9 @@ try:
 
     # create a cursor
     cur = conn.cursor()
-
+    #written by jopaul
+    cur.execute("""SELECT description from quora""")
+    sentance_list = cur.fetchall()
     [write(x) for x in sentance_list]
 
     cur.close()
@@ -74,3 +78,5 @@ finally:
     if conn is not None:
         conn.close()
         print('Database connection closed.')
+
+#sentance_list = [x['input'] for x in csv.DictReader(open('input.csv'))]

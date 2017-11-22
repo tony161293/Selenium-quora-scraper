@@ -6,7 +6,7 @@ from unidecode import unidecode
 
 
 url = 'https://www.quora.com'
-chrome_driver = '/usr/local/bin/chromedriver'
+chrome_driver = '/home/paul/Downloads/chromedriver'
 os.environ["webdriver.chrome.driver"] = chrome_driver
 browser = webdriver.Chrome(chrome_driver)
 browser.get(url)
